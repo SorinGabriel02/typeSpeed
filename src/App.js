@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 
 function App() {
-  const GAME_TIME = 6;
-
+  const [gameTimeInput, setGameTimeInput] = useState("");
+  const [gameTime, setGameTime] = useState(10);
   const [text, setText] = useState("");
   const [wordCount, setWordCount] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(GAME_TIME);
+  const [timeLeft, setTimeLeft] = useState(gameTime);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const textareaRef = useRef(null);
 
   const buttonText = isGameStarted ? "reset" : "start";
+  const timeSpanStyle =
+    timeLeft > 3 ? "green" : timeLeft >= 1 && timeLeft <= 3 ? "yellow" : "red";
   let timeoutId;
 
   function countWords(stateText) {
@@ -20,9 +22,19 @@ function App() {
     if (!isGameStarted) return setIsGameStarted(true);
     clearTimeout(timeoutId);
     setIsGameStarted(false);
-    setTimeLeft(GAME_TIME);
+    setTimeLeft(gameTime);
     setText("");
+    setWordCount(0);
   }
+
+  function handleGameTime() {
+    setGameTime(gameTimeInput);
+    setGameTimeInput("");
+  }
+
+  useEffect(() => {
+    if (gameTime > 1) setTimeLeft(gameTime);
+  }, [gameTime]);
 
   useEffect(() => {
     if (timeLeft > 0 && isGameStarted) {
@@ -38,8 +50,8 @@ function App() {
   }, [timeLeft, isGameStarted]);
 
   function handleChange(e) {
-    const { value } = e.target;
-    setText(value);
+    const { name, value } = e.target;
+    name === "text" ? setText(value) : setGameTimeInput(value);
   }
   return (
     <div>
@@ -49,15 +61,31 @@ function App() {
       <h2>
         {">>"}Test your typing speed{"<<"}
       </h2>
+      <section>
+        <label>How long should the game last?</label>
+        <input
+          disabled={isGameStarted}
+          value={gameTimeInput}
+          onChange={handleChange}
+          type="number"
+          name="gameTimeInput"
+        />
+        <button disabled={isGameStarted} onClick={handleGameTime}>
+          Set Timer
+        </button>
+      </section>
+
       <textarea
         ref={textareaRef}
+        name="text"
         value={text}
         onChange={handleChange}
         disabled={!isGameStarted}
         placeholder="How many words can you get in?"
       />
       <h3>
-        Time left: <span>{timeLeft}</span> seconds
+        Time left: <span style={{ color: timeSpanStyle }}>{timeLeft}</span>{" "}
+        seconds
       </h3>
       <button onClick={startEndGame}>{buttonText}</button>
       <h3>
