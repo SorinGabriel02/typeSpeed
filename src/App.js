@@ -1,8 +1,41 @@
-import React, { setState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function App() {
-  const [text, setText] = setState("");
+  const GAME_TIME = 6;
 
+  const [text, setText] = useState("");
+  const [wordCount, setWordCount] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(GAME_TIME);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const textareaRef = useRef(null);
+
+  const buttonText = isGameStarted ? "reset" : "start";
+
+  function countWords(stateText) {
+    return stateText.split(" ").filter((word) => word !== "").length;
+  }
+
+  function startEndGame() {
+    if (!isGameStarted) setIsGameStarted(true);
+  }
+
+  useEffect(() => {
+    if (timeLeft > 0 && isGameStarted) {
+      textareaRef.current.focus();
+      setTimeout(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+    if (timeLeft === 0) {
+      setWordCount(countWords(text));
+      textareaRef.current.disabled = true;
+    }
+  }, [timeLeft, isGameStarted]);
+
+  function handleChange(e) {
+    const { value } = e.target;
+    setText(value);
+  }
   return (
     <div>
       <header>
@@ -11,13 +44,19 @@ function App() {
       <h2>
         {">>"}Test your typing speed{"<<"}
       </h2>
-      <textarea placeholder="How many words can you get in?" />
+      <textarea
+        ref={textareaRef}
+        value={text}
+        onChange={handleChange}
+        disabled={!isGameStarted}
+        placeholder="How many words can you get in?"
+      />
       <h3>
-        Time left: <span>5</span> seconds
+        Time left: <span>{timeLeft}</span> seconds
       </h3>
-      <button>Start</button>
+      <button onClick={startEndGame}>{buttonText}</button>
       <h3>
-        Word count: <span>0</span>
+        Word count: <span>{wordCount}</span>
       </h3>
     </div>
   );
