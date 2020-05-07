@@ -57,6 +57,29 @@ h2 {
   box-shadow: 1px 1px 3px lightgray, -1px -1px 3px lightgray;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section label {
+  padding: 1vmax;
+  font-size: 1.3rem;
+  color: green;
+  text-shadow: 1px 1px 4px gray;
+}
+
+section input {
+  padding: 0.5vmax;
+  outline-color: gray;
+}
+
+section button {
+  margin: 1vmax;
+}
+
 textarea {
   width: 98%;
   height: 35vh;
@@ -71,7 +94,7 @@ textarea {
 }
 
 textarea:disabled {
-  background-color: grey;
+  background-color: lightgrey;
 }
 
 h3 {
