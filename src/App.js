@@ -10,19 +10,24 @@ function App() {
   const textareaRef = useRef(null);
 
   const buttonText = isGameStarted ? "reset" : "start";
+  let timeoutId;
 
   function countWords(stateText) {
     return stateText.split(" ").filter((word) => word !== "").length;
   }
 
   function startEndGame() {
-    if (!isGameStarted) setIsGameStarted(true);
+    if (!isGameStarted) return setIsGameStarted(true);
+    clearTimeout(timeoutId);
+    setIsGameStarted(false);
+    setTimeLeft(GAME_TIME);
+    setText("");
   }
 
   useEffect(() => {
     if (timeLeft > 0 && isGameStarted) {
       textareaRef.current.focus();
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
     }
