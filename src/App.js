@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { setState } from "react";
 
 function App() {
+  const [text, setText] = setState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h1>TypeSpeed</h1>
       </header>
+      <h2>
+        {">>"}Test your typing speed{"<<"}
+      </h2>
+      <textarea placeholder="How many words can you get in?" />
+      <h3>
+        Time left: <span>5</span> seconds
+      </h3>
+      <button>Start</button>
+      <h3>
+        Word count: <span>0</span>
+      </h3>
     </div>
   );
 }

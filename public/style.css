@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab:400,700&display=swap");
+
+:root {
+  --backColor: burlywood;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Josefin Slab", serif;
+  background-color: var(--backColor);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  background-color: var(--backColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header {
+  background-color: var(--backColor);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--backColor);
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  padding: 2vmax 0;
+  text-shadow: 0 1px 4px grey;
+  border-bottom: 1px solid grey;
+  box-shadow: 0 0 3px grey;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 2px;
+  padding: 0.5vmax 0;
+  margin: 1vmax;
+  box-shadow: 1px 1px 3px lightgray, -1px -1px 3px lightgray;
+}
+
+textarea {
+  width: 98%;
+  height: 35vh;
+  font-family: "Josefin Slab", serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+  resize: none;
+  display: block;
+  padding: 1.5vmax;
+  margin: 1vmax;
+  background-color: beige;
+}
+
+textarea:disabled {
+  background-color: grey;
+}
+
+h3 {
+  font-size: 1.8rem;
+  padding: 1vmax;
+  margin: 1vmax;
+}
+
+button {
+  align-self: center;
+  width: 30%;
+  cursor: pointer;
+  font-size: 3vmax;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.8vmax;
+  padding: 1vmax;
+  background-color: aliceblue;
+  border: 1px solid green;
+  box-shadow: 2px 2px 3px grey, -2px -2px 3px grey, -2px 0 3px grey,
+    0 -2px 3px grey;
+  outline: 1px solid gray;
+  text-shadow: 0 0 3px grey;
+  transform: scale(0.95);
+  transition: all 0.2s ease, text-shadow 0.1s ease-in;
+}
+
+button:hover {
+  transform: scale(1);
+  box-shadow: 2px 2px 5px grey, -2px -2px 5px grey, -2px 2px 5px grey,
+    2px -2px 5px grey;
+}
+
+button:disabled {
+  transform: none;
+  cursor: not-allowed;
+}
+
+button:focus {
+  outline-color: var(--backColor);
+}
+
+span {
+  color: green;
+}
